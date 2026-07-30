@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>时间戳换算工具</title>
+<style>
+body{padding:24px;font-family:system-ui;max-width:900px;margin:0 auto;}
+input{padding:6px;width:360px;margin:8px 0;}
+button{padding:6px 12px;cursor:pointer;}
+#result{margin-top:16px;padding:10px;border:1px solid #ccc;min-height:60px;}
+</style>
+</head>
+<body>
+<h3>时间戳 / 日期互相转换</h3>
+<input id="timeInput" placeholder="输入时间戳(毫秒) 或 YYYY-MM-DD HH:mm:ss">
+<br>
+<button onclick="convert()">开始转换</button>
+<div id="result"></div>
+
+<script>
+function convert(){
+    const val = document.getElementById('timeInput').value.trim();
+    const resBox = document.getElementById('result');
+    if(/^\d{12,13}$/.test(val)){
+        const date = new Date(parseInt(val));
+        resBox.innerText = `标准日期：${date.toLocaleString()}`;
+    }else{
+        const ms = Date.parse(val);
+        if(isNaN(ms)){
+            resBox.innerText = "格式错误！";
+        }else{
+            resBox.innerText = `对应毫秒时间戳：${ms}`;
+        }
+    }
+}
+</script>
+</body>
+</html>
