@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>文本转换工具</title>
+<style>
+body{padding:24px;font-family:system-ui;max-width:900px;margin:0 auto;}
+textarea{width:100%;height:220px;margin:10px 0;padding:8px;box-sizing:border-box;}
+button{padding:6px 12px;margin:4px;cursor:pointer;}
+</style>
+</head>
+<body>
+<h3>文本批量处理</h3>
+<textarea id="inputText" placeholder="粘贴需要处理的文本"></textarea>
+<div>
+<button onclick="toUpper()">全部大写</button>
+<button onclick="toLower()">全部小写</button>
+<button onclick="trimAll()">去除每行首尾空格</button>
+<button onclick="removeEmptyLine()">删除空行</button>
+<button onclick="urlEncode()">URL编码</button>
+<button onclick="urlDecode()">URL解码</button>
+</div>
+<textarea id="outputText" readonly></textarea>
+
+<script>
+const ipt = document.getElementById('inputText');
+const opt = document.getElementById('outputText');
+
+function toUpper(){opt.value = ipt.value.toUpperCase();}
+function toLower(){opt.value = ipt.value.toLowerCase();}
+function trimAll(){
+    let lines = ipt.value.split('\n');
+    opt.value = lines.map(s=>s.trim()).join('\n');
+}
+function removeEmptyLine(){
+    let lines = ipt.value.split('\n');
+    opt.value = lines.filter(s=>s.trim()!=='').join('\n');
+}
+function urlEncode(){opt.value = encodeURIComponent(ipt.value);}
+function urlDecode(){
+    try{opt.value = decodeURIComponent(ipt.value);}
+    catch{opt.value="解码失败";}
+}
+</script>
+</body>
+</html>
